@@ -27,7 +27,7 @@
 
     MMWormholeTransitingType transitingType = MMWormholeTransitingTypeSessionContext;
     if ([args objectForKey:@"transitingType"] != nil) {
-        transitingType = (MMWormholeTransitingType)[args objectForKey:@"transitingType"];
+        transitingType = (MMWormholeTransitingType)[[args objectForKey:@"transitingType"] integerValue];
     }
 
     if ([appGroupId length] == 0)
