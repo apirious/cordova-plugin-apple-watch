@@ -25,6 +25,11 @@
     NSMutableDictionary *args = [command.arguments objectAtIndex:0];
     NSString *appGroupId = [args objectForKey:@"appGroupId"];
 
+    MMWormholeTransitingType transitingType = MMWormholeTransitingTypeSessionContext;
+    if ([args objectForKey:@"transitingType"] != nil) {
+        transitingType = (MMWormholeTransitingType)[[args objectForKey:@"transitingType"] integerValue];
+    }
+
     if ([appGroupId length] == 0)
     {
         appGroupId = [NSString stringWithFormat:@"group.%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
@@ -34,7 +39,7 @@
 
     [self.watchConnectivityListeningWormhole activateSessionListening];
 
-    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:appGroupId optionalDirectory:nil transitingType:MMWormholeTransitingTypeSessionContext];
+    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:appGroupId optionalDirectory:nil transitingType:transitingType];
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:appGroupId];
 

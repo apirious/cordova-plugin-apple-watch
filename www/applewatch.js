@@ -2,8 +2,15 @@
 var exec = require("cordova/exec");
 
 module.exports = {
-    init:function (onSuccess, onError, appGroupId) {
-        exec(onSuccess, onError, "AppleWatch", "init", [{"appGroupId": appGroupId}])
+    TRANSITING_TYPE: {
+        FILE                : 0,
+        COORDINATED_FILE    : 1,
+        SESSION_CONTEXT     : 2,
+        SESSION_MESSAGE     : 3,
+        SESSION_FILE        : 4
+    },
+    init:function (onSuccess, onError, appGroupId, transitingType) {
+        exec(onSuccess, onError, "AppleWatch", "init", [{"appGroupId": appGroupId, "transitingType": transitingType}])
     },
     registerNotifications:function (onSuccess, onError) {
         exec(onSuccess, onError, "AppleWatch", "registerNotifications", []);
